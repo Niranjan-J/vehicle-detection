@@ -1,2 +1,2 @@
 # CI_Project
-Implementation of YOLO algorithm for object detection in autonomous diving cars.
+Implementation of Sliding Window algorithm for object detection in autonomous diving cars.
