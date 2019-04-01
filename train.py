@@ -31,7 +31,7 @@ optimizer=optim.Adam(Net.parameters())
 batch_size=30
 train_loader=get_data_loader('Data/train_img.pt','Data/train_lbl.pt',batch_size)
 valid_loader=get_data_loader('Data/val_img.pt','Data/val_lbl.pt',batch_size)
-epochs=3
+epochs=5
 printfreq=100
 
 start_time=time.time()
