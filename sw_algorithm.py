@@ -18,8 +18,8 @@ def sliding_window(img):
     ymax=img_tensor.size()[2]
     xmax=img_tensor.size()[3]
     # print(ymax,xmax)
-    for i in range(0,ymax-63,10):
-        for j in range(0,xmax-63,10):
+    for i in range(0,ymax-63,20):
+        for j in range(0,xmax-63,20):
             window = img_tensor[:,:,i:i+64,j:j+64]
             window=window.cuda()
             out=Net(window).item()
@@ -27,6 +27,6 @@ def sliding_window(img):
                 #print(out,i,j)
                 drawBox(img,j,i,j+64,i+64)          
 
-image=Image.open('Data/SW_Test/test3.jpg')
+image=Image.open('Data/SW_Test/test1.jpg')
 sliding_window(image)
 image.show()
