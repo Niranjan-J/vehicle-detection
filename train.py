@@ -31,7 +31,7 @@ optimizer=optim.Adam(Net.parameters())
 batch_size=30
 train_loader=get_data_loader('Data/train_img.pt','Data/train_lbl.pt',batch_size)
 valid_loader=get_data_loader('Data/val_img.pt','Data/val_lbl.pt',batch_size)
-epochs=5
+epochs=7
 printfreq=100
 
 start_time=time.time()
@@ -58,10 +58,10 @@ for ep in range(epochs):
         optimizer.step()
 
         if (i+1)%printfreq==0:
-            print("Epoch: %d\nBatch: %d\nRunning Loss: %.2f\n\n"%(ep+1,i+1,running_loss/printfreq))
+            print("Epoch: %d\nBatch: %d\nRunning Loss: %.4f\n\n"%(ep+1,i+1,running_loss/printfreq))
             running_loss=0.0
     
-    print("Epoch %d Train Loss: %.2f\n\n"%((ep+1),train_loss/len(train_loader)))
+    print("Epoch %d Train Loss: %.4f\n\n"%((ep+1),train_loss/len(train_loader)))
     
     for data in valid_loader:
         x,y=data
@@ -72,11 +72,11 @@ for ep in range(epochs):
         running_loss+=loss.item()
         valid_loss+=loss.item()
     
-    print("Epoch %d Valid Loss: %.2f\n\n"%((ep+1),valid_loss/len(valid_loader)))
+    print("Epoch %d Valid Loss: %.4f\n\n"%((ep+1),valid_loss/len(valid_loader)))
 
 end_time=time.time()
 
-print("Training Complete. Time Taken: %.2f"%(end_time-start_time))
+print("Training Complete. Time Taken: %.4f"%(end_time-start_time))
 
 
 
@@ -94,7 +94,7 @@ for data in train_loader:
     Accuracy+=comp.sum().item()
     ipsize+=len(y)
 
-print("Training Accuracy: %.2f"%(Accuracy/ipsize*100))
+print("Training Accuracy: %.4f"%(Accuracy/ipsize*100))
 
 # for data in train_loader:
 #     x,y= data
@@ -122,6 +122,6 @@ for data in valid_loader:
     Accuracy+=comp.sum().item()
     ipsize+=len(y)
 
-print("Validation Accuracy: %.2f"%(Accuracy/ipsize*100))
+print("Validation Accuracy: %.4f"%(Accuracy/ipsize*100))
 
 torch.save(Net,'cnn.pt')
