@@ -7,7 +7,7 @@ import time
 
 # Use GPU
 device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-print(device)
+print('Using ',device)
 
 # Create Batches
 def get_data_loader(img_fname,lbl_fname,bats):

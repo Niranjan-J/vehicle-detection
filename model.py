@@ -32,9 +32,13 @@ class ConvNet(nn.Module):
         
         self.pool=nn.MaxPool2d(kernel_size=2,stride=2)
 
-        self.fconv1=nn.Conv2d(in_channels=100,out_channels=200,kernel_size=3)
-        self.fconv2=nn.Conv2d(in_channels=200,out_channels=100,kernel_size=1)
-        self.fconv3=nn.Conv2d(in_channels=100,out_channels=1,kernel_size=1)
+        self.linear_neurons=(3*3*100)
+
+        self.fc1=nn.Linear(self.linear_neurons,400)
+        self.fc2=nn.Linear(400,200)
+        self.fc3=nn.Linear(200,100)
+        self.fc4=nn.Linear(100,1)
+
 
 
     def forward(self,x):
@@ -50,11 +54,12 @@ class ConvNet(nn.Module):
         x=F.leaky_relu(self.conv31(x))
         x=self.pool(x)
 
-        x=F.leaky_relu(self.fconv1(x))
-        x=F.leaky_relu(self.fconv2(x))
-        x=F.leaky_relu(self.fconv3(x))
-        x=x.view(-1,1)
-        x=torch.sigmoid(x)
+        x=x.view(-1,self.linear_neurons)
+        
+        x=F.relu(self.fc1(x))
+        x=F.relu(self.fc2(x))
+        x=F.relu(self.fc3(x))
+        x=torch.sigmoid(self.fc4(x))
         
         return x
 
