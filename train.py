@@ -49,7 +49,8 @@ for ep in range(epochs):
         optimizer.zero_grad()
 
         output = Net(x)
-
+        output = output.view(-1,1)
+        
         loss = lossfunc(output,y)
         running_loss+=loss.item()
         train_loss+=loss.item()
@@ -66,8 +67,10 @@ for ep in range(epochs):
     for data in valid_loader:
         x,y=data
         x,y = x.to(device=device),y.to(device=device)
+        
         output = Net(x)
-
+        output=output.view(-1,1)
+        
         loss = lossfunc(output,y)
         running_loss+=loss.item()
         valid_loss+=loss.item()
@@ -88,7 +91,10 @@ ipsize=0
 for data in train_loader:
     x,y=data
     x,y=x.to(device=device),y.to(device=device)
+    
     output=Net(x)
+    output = output.view(-1,1)
+    
     output=output.round()
     comp=torch.eq(output,y).type(torch.FloatTensor)
     Accuracy+=comp.sum().item()
@@ -116,7 +122,10 @@ ipsize=0
 for data in valid_loader:
     x,y=data
     x,y=x.to(device=device),y.to(device=device)
+    
     output=Net(x)
+    output = output.view(-1,1)
+    
     output=output.round()
     comp=torch.eq(output,y).type(torch.FloatTensor)
     Accuracy+=comp.sum().item()
