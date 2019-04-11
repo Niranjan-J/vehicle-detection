@@ -5,8 +5,9 @@ import glob
 from PIL import Image, ImageDraw
 import cv2
 from scipy.ndimage.measurements import label
+import  matplotlib.pyplot as plt
 import time
-
+from matplotlib import cm
 # def sliding_window(img,windowSizes,w,h):
     
 #     windows=[]
@@ -88,14 +89,13 @@ import time
 #     draw.rectangle((box[0]*8,box[1]*8,box[2]*8,box[3]*8),outline="red")
 # image.show()
 
-
 device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print('Using',device)
 
-Net=torch.load('cnn.pt')
+Net=torch.load('cnn.pt',map_location='cpu')
 Net.eval()
 
-def sliding_window(image,sx=2,sy=1.8,threshold=0.99,showhm=False):
+def sliding_window(image,sx=2.4,sy=1.6,threshold=0.99,showhm=False):
     
     rectangles=[]
 
@@ -123,13 +123,13 @@ def sliding_window(image,sx=2,sy=1.8,threshold=0.99,showhm=False):
 
     print(boxes[0])
 
-    for box in rectangles:
-        draw.rectangle((box[0],box[1],box[2]+box[0],box[3]+box[1]),outline='green')
+    # for box in rectangles:
+        # draw.rectangle((box[0],box[1],box[2]+box[0],box[3]+box[1]),outline='green')
 
     for box in boxes[0]:
         draw.rectangle((box[0]-(sx-1)*box[2]//2,box[1]-(sy-1)*box[2]//2,box[2]*sx+box[0]-(sx-1)*box[2]//2,box[3]*sy+box[1]-(sy-1)*box[2]//2),outline='red')
     
-
+    return image
     # heatmap[heatmap[:,:]<=threshold]=0
     # heatmap[heatmap[:,:]>threshold]=100
     
@@ -151,9 +151,37 @@ for i,file in enumerate(files):
     img = Image.open(file)
 
     start = time.time()
-    sliding_window(img)
+    # print(img.size)
+    # sliding_window(img)
     end = time.time()
     
     print("Time: %.4f"%(end-start))
     
     img.save('SW_Test_Output/'+str(i+1)+'.jpg')
+
+def capture_video() :
+    video = cv2.VideoWriter('video.avi',-1,1,(1920,1200))
+    cap = cv2.VideoCapture("./test.mp4")
+    success,image = cap.read()
+    count = 0
+    success = True
+    
+    while (cap.isOpened()) :
+        # cv2.imwrite("tmp/frame%d.jpg" % count, image)     # save frame as JPEG file
+        success,image = cap.read()
+        if success :
+            count +=1
+            print(count)
+            final_image = sliding_window(Image.fromarray(image))
+            cv2.imshow('result',np.array(final_image))
+            cv2.waitKey(1)
+            # plt.imshow(final_image)
+            # video.write(final_image)
+        else :
+            break;
+        # cv2.imshow('result',final_image)
+        # cv2.waitKey(1)
+    cv2.destroyAllWindows()
+    video.release()
+
+capture_video()
