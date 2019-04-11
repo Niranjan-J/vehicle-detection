@@ -1,10 +1,11 @@
 from PIL import Image
 import glob
 
-source="/home/niranjan/Downloads/cars/"
-destination="Data/vehicle/"
+source="data_zip/vehicles/KITTI_extracted/*.png"
+destination="data_zip/vehicles/"
 
-for i in range(11000,19000):
-    img=Image.open(source+str(i)+'.png')
-    img=img.resize((64,64),Image.BICUBIC)
-    img.save(destination+str(i)+".png")
+files=glob.glob(source)
+
+for i,file in enumerate(files):
+    img=Image.open(file)
+    img.save(destination+str(i+500000)+'.png')
