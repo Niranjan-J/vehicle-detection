@@ -3,6 +3,7 @@ import torchvision
 import numpy as np 
 import glob
 from PIL import Image, ImageDraw
+import cv2
 from scipy.ndimage.measurements import label
 import time
 
@@ -94,9 +95,10 @@ print('Using',device)
 Net=torch.load('cnn.pt')
 Net.eval()
 
-
-def sliding_window(image,threshold=0.99,showhm=False):
+def sliding_window(image,sx=2,sy=1.8,threshold=0.99,showhm=False):
     
+    rectangles=[]
+
     image_tensor = torchvision.transforms.functional.to_tensor(image)
     image_tensor = torch.unsqueeze(image_tensor,0).to(device)
 
@@ -115,9 +117,18 @@ def sliding_window(image,threshold=0.99,showhm=False):
     y = (yy[heatmap[:,:]>threshold])
     
     for i,j in zip(x,y): 
-        if j>image.height//32:
-            draw.rectangle((i*8,j*8,i*8+64,j*8+64), outline="red")
+        rectangles.append([int(i*8),int(j*8),int(64),int(64)])
 
+    boxes = cv2.groupRectangles(rectangles,2,1)
+
+    print(boxes[0])
+
+    for box in rectangles:
+        draw.rectangle((box[0],box[1],box[2]+box[0],box[3]+box[1]),outline='green')
+
+    for box in boxes[0]:
+        draw.rectangle((box[0]-(sx-1)*box[2]//2,box[1]-(sy-1)*box[2]//2,box[2]*sx+box[0]-(sx-1)*box[2]//2,box[3]*sy+box[1]-(sy-1)*box[2]//2),outline='red')
+    
 
     # heatmap[heatmap[:,:]<=threshold]=0
     # heatmap[heatmap[:,:]>threshold]=100
