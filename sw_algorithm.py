@@ -114,8 +114,9 @@ def sliding_window(image,threshold=0.99,showhm=False):
     x = (xx[heatmap[:,:]>threshold])
     y = (yy[heatmap[:,:]>threshold])
     
-    for i,j in zip(x,y):
-        draw.rectangle((i*8,j*8,i*8+64,j*8+64), outline="red")
+    for i,j in zip(x,y): 
+        if j>image.height//32:
+            draw.rectangle((i*8,j*8,i*8+64,j*8+64), outline="red")
 
 
     # heatmap[heatmap[:,:]<=threshold]=0
@@ -129,7 +130,8 @@ def sliding_window(image,threshold=0.99,showhm=False):
     #     nonzeroy = np.array(nonzero[0])
     #     nonzerox = np.array(nonzero[1])
     #     box = (np.min(nonzerox), np.min(nonzeroy),np.max(nonzerox), np.max(nonzeroy))
-    #     draw.rectangle((box[0]*8,box[1]*8,box[2]*8,box[3]*8),outline="blue")
+    #     if box[2]>image.height//32 and box[2]-box[0]>8 and box[3]-box[1]>8:
+    #         draw.rectangle((box[0]*8,box[1]*8,box[2]*8,box[3]*8),outline="blue")
 
 files = glob.glob('SW_Test/*.jpg')
 
