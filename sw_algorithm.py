@@ -15,7 +15,7 @@ print('Using',device)
 Net=torch.load('cnn.pt',map_location='cpu')
 Net.eval()
 
-def sliding_window(image,filename,sx=2.4,sy=1.8,threshold=0.99,showhm=False,save_files=True):
+def sliding_window(image,filename,sx=2.4,sy=1.8,threshold=0.99,save_files=True):
     
     rectangles=[]
 
@@ -30,10 +30,6 @@ def sliding_window(image,filename,sx=2.4,sy=1.8,threshold=0.99,showhm=False,save
     heatmap_thresh[heatmap[:,:]>threshold] = 100;
     heatmap_thresh[heatmap[:,:]<=threshold] = 0;
 
-    # print(heatmap_thresh)
-
-    if showhm:
-        Image.fromarray(heatmap[:,:]*255).show()
 
     image_copy = image.copy()
     draw = ImageDraw.Draw(image)
@@ -46,8 +42,14 @@ def sliding_window(image,filename,sx=2.4,sy=1.8,threshold=0.99,showhm=False,save
     x = (xx[heatmap[:,:]>threshold])
     y = (yy[heatmap[:,:]>threshold])
     
+    ratio = (image.width/heatmap_img.width , image.height/heatmap_img.height)
+    
     for i,j in zip(x,y): 
-        rectangles.append([int(i*8),int(j*8),int(64),int(64)])
+        if not save_files :
+            if i>heatmap_img.width//2 and j>int(heatmap_img.height/1.9) :
+                rectangles.append([int(i*8),int(j*8),int(64),int(64)])
+        else :
+            rectangles.append([int(i*8),int(j*8),int(64),int(64)])
 
     boxes = cv2.groupRectangles(rectangles,2,1)
 
@@ -84,11 +86,11 @@ def generate_test_images() :
 
 def capture_video() :
     fourcc = cv2.VideoWriter_fourcc('M','J','P','G')
-    cap = cv2.VideoCapture("./test.mp4")
+    cap = cv2.VideoCapture("./test_small.mp4")
     success,image = cap.read()
     count = 0
     success = True
-    im_size = (960,640) 
+    im_size = (1280,720) 
     video = cv2.VideoWriter('./video.avi',fourcc,12,im_size,True)
     
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))

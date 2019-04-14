@@ -33,6 +33,6 @@ def save_as_tensor(images,start,samples,Itname,Ltname):
     torch.save(imgt,Itname)
     torch.save(lblt,Ltname)
 
-save_as_tensor(img,0,Train_samples,'Data/train_img.pt','Data/train_lbl.pt')
-save_as_tensor(img,Train_samples,CV_samples,'Data/val_img.pt','Data/val_lbl.pt')
-save_as_tensor(img,CV_samples,Test_samples,'Data/test_img.pt','Data/test_lbl.pt')
+save_as_tensor(img,0,Train_samples,'Tensors/train_img.pt','Tensors/train_lbl.pt')
+save_as_tensor(img,Train_samples,CV_samples,'Tensors/val_img.pt','Tensors/val_lbl.pt')
+save_as_tensor(img,CV_samples,Test_samples,'Tensors/test_img.pt','Tensors/test_lbl.pt')

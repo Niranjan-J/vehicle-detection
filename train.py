@@ -29,8 +29,8 @@ optimizer=optim.Adam(Net.parameters())
 
 # Training
 batch_size=64
-train_loader=get_data_loader('Data/train_img.pt','Data/train_lbl.pt',batch_size)
-valid_loader=get_data_loader('Data/val_img.pt','Data/val_lbl.pt',batch_size)
+train_loader=get_data_loader('Tensors/train_img.pt','Tensors/train_lbl.pt',batch_size)
+valid_loader=get_data_loader('Tensors/val_img.pt','Tensors/val_lbl.pt',batch_size)
 epochs=20
 printfreq=100
 
