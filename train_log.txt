@@ -1,0 +1,221 @@
+Device : cuda
+
+Batch Size : 64
+
+ConvNet(
+  (conv1): Conv2d(3, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (conv2): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (pool): MaxPool2d(kernel_size=8, stride=8, padding=0, dilation=1, ceil_mode=False)
+  (dropout1): Dropout(p=0.25)
+  (conv3): Conv2d(10, 128, kernel_size=(8, 8), stride=(1, 1))
+  (dropout2): Dropout(p=0.5)
+  (conv4): Conv2d(128, 1, kernel_size=(1, 1), stride=(1, 1))
+)
+
+Optimizer : ADAM
+
+Epochs : 20
+
+Epoch: 1	Batch: 50
+Running Loss: 0.5087
+Epoch: 1	Batch: 100
+Running Loss: 0.2898
+Epoch: 1	Batch: 150
+Running Loss: 0.2501
+
+Epoch 1 Train Loss: 0.3391
+Epoch 1 Valid Loss: 0.2144
+
+Epoch: 2	Batch: 50
+Running Loss: 0.2101
+Epoch: 2	Batch: 100
+Running Loss: 0.1647
+Epoch: 2	Batch: 150
+Running Loss: 0.1590
+
+Epoch 2 Train Loss: 0.1731
+Epoch 2 Valid Loss: 0.1367
+
+Epoch: 3	Batch: 50
+Running Loss: 0.1489
+Epoch: 3	Batch: 100
+Running Loss: 0.1171
+Epoch: 3	Batch: 150
+Running Loss: 0.1247
+
+Epoch 3 Train Loss: 0.1267
+Epoch 3 Valid Loss: 0.1129
+
+Epoch: 4	Batch: 50
+Running Loss: 0.1092
+Epoch: 4	Batch: 100
+Running Loss: 0.0926
+Epoch: 4	Batch: 150
+Running Loss: 0.0937
+
+Epoch 4 Train Loss: 0.0968
+Epoch 4 Valid Loss: 0.1097
+
+Epoch: 5	Batch: 50
+Running Loss: 0.0941
+Epoch: 5	Batch: 100
+Running Loss: 0.0810
+Epoch: 5	Batch: 150
+Running Loss: 0.0845
+
+Epoch 5 Train Loss: 0.0858
+Epoch 5 Valid Loss: 0.0726
+
+Epoch: 6	Batch: 50
+Running Loss: 0.0754
+Epoch: 6	Batch: 100
+Running Loss: 0.0772
+Epoch: 6	Batch: 150
+Running Loss: 0.0596
+
+Epoch 6 Train Loss: 0.0731
+Epoch 6 Valid Loss: 0.1113
+
+Epoch: 7	Batch: 50
+Running Loss: 0.0706
+Epoch: 7	Batch: 100
+Running Loss: 0.0714
+Epoch: 7	Batch: 150
+Running Loss: 0.0616
+
+Epoch 7 Train Loss: 0.0661
+Epoch 7 Valid Loss: 0.0562
+
+Epoch: 8	Batch: 50
+Running Loss: 0.0519
+Epoch: 8	Batch: 100
+Running Loss: 0.0621
+Epoch: 8	Batch: 150
+Running Loss: 0.0511
+
+Epoch 8 Train Loss: 0.0552
+Epoch 8 Valid Loss: 0.0533
+
+Epoch: 9	Batch: 50
+Running Loss: 0.0489
+Epoch: 9	Batch: 100
+Running Loss: 0.0542
+Epoch: 9	Batch: 150
+Running Loss: 0.0515
+
+Epoch 9 Train Loss: 0.0503
+Epoch 9 Valid Loss: 0.0443
+
+Epoch: 10	Batch: 50
+Running Loss: 0.0497
+Epoch: 10	Batch: 100
+Running Loss: 0.0566
+Epoch: 10	Batch: 150
+Running Loss: 0.0416
+
+Epoch 10 Train Loss: 0.0484
+Epoch 10 Valid Loss: 0.0417
+
+Epoch: 11	Batch: 50
+Running Loss: 0.0485
+Epoch: 11	Batch: 100
+Running Loss: 0.0429
+Epoch: 11	Batch: 150
+Running Loss: 0.0423
+
+Epoch 11 Train Loss: 0.0445
+Epoch 11 Valid Loss: 0.0454
+
+Epoch: 12	Batch: 50
+Running Loss: 0.0416
+Epoch: 12	Batch: 100
+Running Loss: 0.0482
+Epoch: 12	Batch: 150
+Running Loss: 0.0398
+
+Epoch 12 Train Loss: 0.0428
+Epoch 12 Valid Loss: 0.0363
+
+Epoch: 13	Batch: 50
+Running Loss: 0.0378
+Epoch: 13	Batch: 100
+Running Loss: 0.0411
+Epoch: 13	Batch: 150
+Running Loss: 0.0436
+
+Epoch 13 Train Loss: 0.0404
+Epoch 13 Valid Loss: 0.0491
+
+Epoch: 14	Batch: 50
+Running Loss: 0.0364
+Epoch: 14	Batch: 100
+Running Loss: 0.0529
+Epoch: 14	Batch: 150
+Running Loss: 0.0334
+
+Epoch 14 Train Loss: 0.0391
+Epoch 14 Valid Loss: 0.0360
+
+Epoch: 15	Batch: 50
+Running Loss: 0.0393
+Epoch: 15	Batch: 100
+Running Loss: 0.0402
+Epoch: 15	Batch: 150
+Running Loss: 0.0335
+
+Epoch 15 Train Loss: 0.0385
+Epoch 15 Valid Loss: 0.0342
+
+Epoch: 16	Batch: 50
+Running Loss: 0.0359
+Epoch: 16	Batch: 100
+Running Loss: 0.0340
+Epoch: 16	Batch: 150
+Running Loss: 0.0269
+
+Epoch 16 Train Loss: 0.0335
+Epoch 16 Valid Loss: 0.0399
+
+Epoch: 17	Batch: 50
+Running Loss: 0.0368
+Epoch: 17	Batch: 100
+Running Loss: 0.0313
+Epoch: 17	Batch: 150
+Running Loss: 0.0334
+
+Epoch 17 Train Loss: 0.0330
+Epoch 17 Valid Loss: 0.0335
+
+Epoch: 18	Batch: 50
+Running Loss: 0.0262
+Epoch: 18	Batch: 100
+Running Loss: 0.0338
+Epoch: 18	Batch: 150
+Running Loss: 0.0314
+
+Epoch 18 Train Loss: 0.0307
+Epoch 18 Valid Loss: 0.0341
+
+Epoch: 19	Batch: 50
+Running Loss: 0.0251
+Epoch: 19	Batch: 100
+Running Loss: 0.0313
+Epoch: 19	Batch: 150
+Running Loss: 0.0283
+
+Epoch 19 Train Loss: 0.0286
+Epoch 19 Valid Loss: 0.0404
+
+Epoch: 20	Batch: 50
+Running Loss: 0.0277
+Epoch: 20	Batch: 100
+Running Loss: 0.0282
+Epoch: 20	Batch: 150
+Running Loss: 0.0275
+
+Epoch 20 Train Loss: 0.0269
+Epoch 20 Valid Loss: 0.0364
+
+Training Complete. Time Taken: 90.2096
+Training Accuracy: 99.0709
+Validation Accuracy: 98.8176

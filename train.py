@@ -7,7 +7,7 @@ import time
 
 # Use GPU
 device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-print('Using ',device)
+print('Device:',device)
 
 # Create Batches
 def get_data_loader(img_fname,lbl_fname,bats):
@@ -19,7 +19,6 @@ def get_data_loader(img_fname,lbl_fname,bats):
 
 # Create Model Instance
 Net=ConvNet().to(device=device)
-print(Net)
 
 # Get loss funtion
 lossfunc=torch.nn.BCELoss(reduction='mean')
@@ -27,12 +26,21 @@ lossfunc=torch.nn.BCELoss(reduction='mean')
 # Get optimizer
 optimizer=optim.Adam(Net.parameters())
 
+# Open log file
+log = open("train_log.txt","w")
+
 # Training
 batch_size=64
 train_loader=get_data_loader('Tensors/train_img.pt','Tensors/train_lbl.pt',batch_size)
 valid_loader=get_data_loader('Tensors/val_img.pt','Tensors/val_lbl.pt',batch_size)
 epochs=20
-printfreq=100
+printfreq=50
+
+log.write("Device : %s\n\n"%(device))
+log.write("Batch Size : %d\n\n"%(batch_size))
+log.write(str(Net)+'\n\n')
+log.write("Optimizer : ADAM\n\n")
+log.write("Epochs : %d\n\n"%(epochs))
 
 start_time=time.time()
 
@@ -59,10 +67,10 @@ for ep in range(epochs):
         optimizer.step()
 
         if (i+1)%printfreq==0:
-            print("Epoch: %d\nBatch: %d\nRunning Loss: %.4f\n\n"%(ep+1,i+1,running_loss/printfreq))
+            log.write("Epoch: %d\tBatch: %d\nRunning Loss: %.4f\n"%(ep+1,i+1,running_loss/printfreq))
             running_loss=0.0
     
-    print("Epoch %d Train Loss: %.4f\n\n"%((ep+1),train_loss/len(train_loader)))
+    log.write("\nEpoch %d Train Loss: %.4f\n"%((ep+1),train_loss/len(train_loader)))
     
     for data in valid_loader:
         x,y=data
@@ -75,11 +83,11 @@ for ep in range(epochs):
         running_loss+=loss.item()
         valid_loss+=loss.item()
     
-    print("Epoch %d Valid Loss: %.4f\n\n"%((ep+1),valid_loss/len(valid_loader)))
+    log.write("Epoch %d Valid Loss: %.4f\n\n"%((ep+1),valid_loss/len(valid_loader)))
 
 end_time=time.time()
 
-print("Training Complete. Time Taken: %.4f"%(end_time-start_time))
+log.write("Training Complete. Time Taken: %.4f\n"%(end_time-start_time))
 
 
 
@@ -100,7 +108,7 @@ for data in train_loader:
     Accuracy+=comp.sum().item()
     ipsize+=len(y)
 
-print("Training Accuracy: %.4f"%(Accuracy/ipsize*100))
+log.write("Training Accuracy: %.4f\n"%(Accuracy/ipsize*100))
 
 # for data in train_loader:
 #     x,y= data
@@ -131,6 +139,6 @@ for data in valid_loader:
     Accuracy+=comp.sum().item()
     ipsize+=len(y)
 
-print("Validation Accuracy: %.4f"%(Accuracy/ipsize*100))
+log.write("Validation Accuracy: %.4f\n"%(Accuracy/ipsize*100))
 
 torch.save(Net,'cnn.pt')

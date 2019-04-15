@@ -10,9 +10,9 @@ from matplotlib import cm
 import time
 
 device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-print('Using',device)
+print('Device:',device)
 
-Net=torch.load('cnn.pt',map_location='cpu')
+Net=torch.load('cnn.pt',map_location=device)
 Net.eval()
 
 def sliding_window(image,filename,sx=2.4,sy=1.8,threshold=0.99,save_files=True):
@@ -27,8 +27,8 @@ def sliding_window(image,filename,sx=2.4,sy=1.8,threshold=0.99,save_files=True):
 
     heatmap = output_tensor[0]
     heatmap_thresh = heatmap.copy()
-    heatmap_thresh[heatmap[:,:]>threshold] = 100;
-    heatmap_thresh[heatmap[:,:]<=threshold] = 0;
+    heatmap_thresh[heatmap[:,:]>threshold] = 100
+    heatmap_thresh[heatmap[:,:]<=threshold] = 0
 
 
     image_copy = image.copy()
