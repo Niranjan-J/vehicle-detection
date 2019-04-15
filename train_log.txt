@@ -219,3 +219,4 @@ Epoch 20 Valid Loss: 0.0364
 Training Complete. Time Taken: 90.2096
 Training Accuracy: 99.0709
 Validation Accuracy: 98.8176
+Testing Accuracy: 99.0428
