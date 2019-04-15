@@ -33,6 +33,7 @@ log = open("train_log.txt","w")
 batch_size=64
 train_loader=get_data_loader('Tensors/train_img.pt','Tensors/train_lbl.pt',batch_size)
 valid_loader=get_data_loader('Tensors/val_img.pt','Tensors/val_lbl.pt',batch_size)
+test_loader=get_data_loader('Tensors/test_img.pt','Tensors/test_lbl.pt',batch_size)
 epochs=20
 printfreq=50
 
@@ -110,18 +111,6 @@ for data in train_loader:
 
 log.write("Training Accuracy: %.4f\n"%(Accuracy/ipsize*100))
 
-# for data in train_loader:
-#     x,y= data
-#     pred=Net(x.to(device)).round()
-#     y=y.to(device)
-#     comp=torch.eq(pred,y)
-#     print("Predicted\tActual\t Equality")
-#     for i,yt in enumerate(y):
-#         print("%d\t\t%d\t\t%d"%(pred[i],yt,comp[i]))
-#     break
-
-
-
 # Validation Accuracy
 
 Accuracy=0.0
@@ -140,5 +129,24 @@ for data in valid_loader:
     ipsize+=len(y)
 
 log.write("Validation Accuracy: %.4f\n"%(Accuracy/ipsize*100))
+
+# Testing Accuracy
+
+Accuracy=0.0
+ipsize=0
+
+for data in test_loader:
+    x,y=data
+    x,y=x.to(device=device),y.to(device=device)
+    
+    output=Net(x)
+    output = output.view(-1,1)
+    
+    output=output.round()
+    comp=torch.eq(output,y).type(torch.FloatTensor)
+    Accuracy+=comp.sum().item()
+    ipsize+=len(y)
+
+log.write("Testing Accuracy: %.4f\n"%(Accuracy/ipsize*100))
 
 torch.save(Net,'cnn.pt')
