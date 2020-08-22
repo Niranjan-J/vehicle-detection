@@ -1,6 +1,7 @@
-# CI_Project
+# Vehicle Detection
+CS 304: Computer Intelligence Project
 
-Implementation of Sliding Window algorithm for object detection in autonomous diving cars.
+Implementation of Sliding Window algorithm using CNN for object detection in autonomous diving cars.
 
 * Data-set included - Vehicles and Non-Vehicles (approx 8k each).
 * Sample test images included.
